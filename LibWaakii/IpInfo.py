@@ -1,7 +1,6 @@
 #-*- coding:utf-8 -*-
- 
+
 import requests
-from bs4 import BeautifulSoup
 import re
 import LibWaakii.AppLoggerLite as AppLogger
 import time
@@ -11,12 +10,8 @@ class IpAddress(object):
     # 获取外网IP
     def parseOutIp(self,content):
         try:
-            oContent = requests.get(content)
-
-
-            if oContent != None:
-                sHtmlContent = oContent.text
-                ip = sHtmlContent[sHtmlContent.find("[") + 1: sHtmlContent.find("]")]
+            if content != None:
+                ip = content
                 
                 # AppLogger.StandLogger.infoLog('取得外网IP成功,ip地址为(' + ip + ')')
 
@@ -29,12 +24,10 @@ class IpAddress(object):
         except:
             return None
 
-    def getIpServiceContent(self, url = r'http://www.ip138.com/'):
+    def getIpServiceContent(self, url = 'https://ifconfig.me/ip'):
         try:
             r = requests.get(url)
-            txt = r.text
-            soup = BeautifulSoup(txt,"html.parser").iframe
-            return soup["src"]
+            return r.text
         except:
             return None
 
